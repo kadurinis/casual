@@ -1,0 +1,37 @@
+.form_radio_btn {
+    display: inline-block;
+    padding: 5px;
+}
+.form_radio_btn input[type=radio] {
+    display: none;
+}
+.form_radio_btn label {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px;
+    font-size: 200%;
+    width: 100%;
+}
+
+/* Checked */
+.form_radio_btn input[type=radio]:checked + label {
+    background: #4cae4c;
+    border-color: #4cae4c;
+    color: white;
+}
+
+/* Hover */
+.form_radio_btn label:hover {
+    color: #666;
+}
+
+/* Disabled */
+.form_radio_btn input[type=radio]:disabled + label {
+    background: #efefef;
+    color: #666;
+}
+
+#driver-page > div {
+    margin: 10pt 0;
+}
