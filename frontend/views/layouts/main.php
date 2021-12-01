@@ -9,7 +9,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-$this->registerCss('.nav-btn {padding-top:10px !important; padding-bottom: 10px !important; line-height: 30px !important; color: white !important}');
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

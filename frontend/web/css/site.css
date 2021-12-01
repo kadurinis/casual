@@ -145,3 +145,10 @@ a.desc:after {
 .body {
     background-color: #ecf0f5
 }
+
+.nav-btn {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: 30px !important;
+    color: white !important
+}
