@@ -7,7 +7,7 @@ use yii\bootstrap\Html;
 $this->registerCss('.admin-btn {margin: 25px; width: 100%; padding: 20px; font-size: 240%}');
 $this->title = 'Панель администратора';
 ?>
-<div class="row" style="padding: 15vh 0">
+<div class="row" style="padding: 10vh 0">
     <div class="col-md-2 col-xs-0"></div>
     <div class="col-md-8 col-xs-12">
         <div class="row">
@@ -22,5 +22,4 @@ $this->title = 'Панель администратора';
     </div>
     <div class="col-md-2 col-xs-0"></div>
 </div>
-
 

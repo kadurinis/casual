@@ -20,7 +20,7 @@ DriverAsset::register($this);
 </div>
 <?php $form = ActiveForm::begin(['action' => ['driver/create-order']]); ?>
 <div id="driver-page">
-    <h3>Водитель</h3>
+    <h4>Водитель</h4>
     <div class="row">
     <?php foreach ($drivers as $driver) : ?>
         <div class="col-md-3 form_radio_btn">
@@ -30,7 +30,7 @@ DriverAsset::register($this);
     <?php endforeach; ?>
     </div>
 
-    <h3>Корм</h3>
+    <h4>Корм</h4>
     <div class="row">
         <?php foreach ($foods as $food) : ?>
             <div class="col-md-3 form_radio_btn">
@@ -40,7 +40,7 @@ DriverAsset::register($this);
         <?php endforeach; ?>
     </div>
 
-    <h3>Ферма</h3>
+    <h4>Ферма</h4>
     <div class="row">
         <?php foreach ($farms as $farm) : ?>
             <div class="col-md-3 form_radio_btn">

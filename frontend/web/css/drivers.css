@@ -1,6 +1,6 @@
 .form_radio_btn {
     display: inline-block;
-    padding: 5px;
+    padding: 0.5vh;
 }
 .form_radio_btn input[type=radio] {
     display: none;
@@ -9,8 +9,8 @@
     display: inline-block;
     cursor: pointer;
     user-select: none;
-    padding: 5px;
-    font-size: 200%;
+    padding: 1vh;
+    font-size: 150%;
     width: 100%;
 }
 

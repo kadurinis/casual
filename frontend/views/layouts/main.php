@@ -25,32 +25,6 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php $this->registerCss('
-.navbar-inverse {
-background-color: #3c8dbc !important; 
-border-color: #3c8dbc !important
-} 
-
-.navbar-inverse li a, .navbar-inverse .btn-link {
-color: white !important;
-}
-
-.navbar-inverse li a:hover, .navbar-inverse .btn-link:hover, a.navbar-brand:hover {
-    background-color: #367fa9 !important;
-}
-
-.navbar-brand, .btn-primary:hover {
-color: white !important;
-}
-
-.navbar-inverse li.active a {
-background-color: #367fa9 !important;
-color: white;
-} 
-
-.body {
-background-color: #ecf0f5
-}') ?>
 <div class="wrap">
     <?php
     NavBar::begin([
