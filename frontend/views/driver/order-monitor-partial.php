@@ -6,6 +6,7 @@ use common\models\search\OrderModel;
  * @var OrderModel $model|null
  */
 ?>
+<?php if ($model): ?>
 <h3 align="center">Заявка на отгрузку №<?= $model->id ?></h3>
 <div style="padding: 80pt">
     <?= DetailView::widget([
@@ -20,3 +21,8 @@ use common\models\search\OrderModel;
         ],
     ]) ?>
 </div>
+<?php else: ?>
+<div class="alert alert-info">
+    Не создано ни одной заявки. Здесь будет отображение последней заявки в реальном времени
+</div>
+<?php endif ?>
