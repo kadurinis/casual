@@ -12,10 +12,10 @@ class m211201_205623_truncate_tables extends Migration
      */
     public function safeUp()
     {
-        $this->truncateTable('driver');
-        $this->truncateTable('farm');
-        $this->truncateTable('food');
-        $this->truncateTable('order');
+        $this->delete('order', []);
+        $this->delete('driver', []);
+        $this->delete('farm', []);
+        $this->delete('food', []);
     }
 
     /**
