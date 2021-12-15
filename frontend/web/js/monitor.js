@@ -7,6 +7,12 @@ $(document).ready(function() {
             cache: false,
             url: '/index.php?r=driver/monitor-order',
             success: function (data) {
+                console.log($(data).find('h3'));
+                if ($(data).hasClass('new-order')) {
+                    $('#new-order').addClass('visible');
+                }else {
+                    $('#new-order').removeClass('visible');
+                }
                 $('#monitor-order').html(data);
             },
             error: function (data) {

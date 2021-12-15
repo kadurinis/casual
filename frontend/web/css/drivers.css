@@ -2,7 +2,7 @@
     display: inline-block;
     padding: 0.5vh;
 }
-.form_radio_btn input[type=radio] {
+.form_radio_btn input[type=radio], .form_radio_btn input[type=checkbox] {
     display: none;
 }
 .form_radio_btn label {
@@ -15,7 +15,7 @@
 }
 
 /* Checked */
-.form_radio_btn input[type=radio]:checked + label {
+.form_radio_btn input[type=radio]:checked + label, .form_radio_btn input[type=checkbox]:checked + label {
     background: #4cae4c;
     border-color: #4cae4c;
     color: white;
@@ -27,11 +27,46 @@
 }
 
 /* Disabled */
-.form_radio_btn input[type=radio]:disabled + label {
+.form_radio_btn input[type=radio]:disabled + label, .form_radio_btn input[type=checkbox]:disabled + label {
     background: #efefef;
     color: #666;
 }
 
 #driver-page > div {
     margin: 10pt 0;
+}
+
+#preview ul, #preview ol {
+    margin: 24px 0;
+    font-size: 18px;
+}
+
+#preview li {
+    font-size: 16px;
+}
+
+#back, #next, #submit, #drivers, #farms, #foods {display: none}
+
+
+#new-order {
+    text-align: center;
+    font-size: 300%;
+    color: darkgreen;
+    margin-top: 15px;
+    display: none
+}
+
+#new-order.visible {
+    display: block
+}
+
+#new-order {
+    -webkit-animation: blink2 1s linear infinite;
+    animation: blink2 1s linear infinite;
+}
+@-webkit-keyframes blink2 {
+    100% { color: rgba(34, 34, 34, 0); }
+}
+@keyframes blink2 {
+    100% { color: rgba(34, 34, 34, 0); }
 }

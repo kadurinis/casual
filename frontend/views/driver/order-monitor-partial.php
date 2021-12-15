@@ -7,15 +7,15 @@ use common\models\search\OrderModel;
  */
 ?>
 <?php if ($model): ?>
-<h3 align="center">Заявка на отгрузку №<?= $model->id ?></h3>
+<h3 align="center" class="<?= $model->isNew() ? 'new-order' : '' ?>">Заявка на отгрузку №<?= $model->id ?></h3>
 <div style="padding: 80pt">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'created_at:datetime',
             'driverName:text',
-            'foodName:text',
-            'farmName:text',
+            'foodList:text',
+            'farmList:text',
             'state:text',
             'finished_at:datetime'
         ],

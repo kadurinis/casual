@@ -17,6 +17,9 @@ use Yii;
  * @property Driver $driver
  * @property Farm $farm
  * @property Food $food
+ *
+ * @property Farm[] $farms
+ * @property Food[] $foods
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -36,10 +39,8 @@ class Order extends \yii\db\ActiveRecord
         return [
             [['created_at', 'finished_at', 'driver_id', 'food_id', 'farm_id'], 'integer'],
             [['created_at'], 'default', 'value' => time()],
-            [['food_id', 'farm_id', 'driver_id'], 'required'],
+            [['driver_id'], 'required'],
             [['driver_id'], 'exist', 'skipOnError' => true, 'targetClass' => Driver::className(), 'targetAttribute' => ['driver_id' => 'id']],
-            [['farm_id'], 'exist', 'skipOnError' => true, 'targetClass' => Farm::className(), 'targetAttribute' => ['farm_id' => 'id']],
-            [['food_id'], 'exist', 'skipOnError' => true, 'targetClass' => Food::className(), 'targetAttribute' => ['food_id' => 'id']],
         ];
     }
 
@@ -86,5 +87,23 @@ class Order extends \yii\db\ActiveRecord
     public function getFood()
     {
         return $this->hasOne(Food::className(), ['id' => 'food_id']);
+    }
+
+    public function getFoodOrder()
+    {
+        return $this->hasMany(OrderFood::className(), ['order_id' => 'id']);
+    }
+
+    public function getFarmOrder()
+    {
+        return $this->hasMany(OrderFarm::className(), ['order_id' => 'id']);
+    }
+
+    public function getFoods() {
+        return $this->hasMany(Food::class, ['id' => 'food_id'])->via('foodOrder');
+    }
+
+    public function getFarms() {
+        return $this->hasMany(Farm::class, ['id' => 'farm_id'])->via('farmOrder');
     }
 }

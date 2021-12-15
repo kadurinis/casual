@@ -50,7 +50,11 @@ $columns = [
                 'dropdownAutoWidth' => true,
             ]
         ],
-        'format' => ['ExistInArray', $model->getFoodList()],
+        //'format' => ['ExistInArray', $model->getFoodList()],
+        'format' => 'text',
+        'value' => static function (OrderHistory $model) {
+            return $model->getFoodCell();
+        }
     ],
     [
         'class' => DataColumn::class,
@@ -65,7 +69,11 @@ $columns = [
                 'dropdownAutoWidth' => true,
             ]
         ],
-        'format' => ['ExistInArray', $model->getFarmList()],
+        //'format' => ['ExistInArray', $model->getFarmList()],
+        'format' => 'text',
+        'value' => static function (OrderHistory $model) {
+            return $model->getFarmCell();
+        }
     ],
 ];
 $dataProvider = $model->search();

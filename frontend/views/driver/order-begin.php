@@ -20,8 +20,8 @@ $this->title = 'Заявка на отгрузку';
     'attributes' => [
         'created_at:datetime',
         'driverName:text',
-        'foodName:text',
-        'farmName:text',
+        'foodList:text',
+        'farmList:text',
         'state:text',
     ],
 ]) ?>

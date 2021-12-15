@@ -34,7 +34,7 @@ class Farm extends \yii\db\ActiveRecord
         return [
             [['created_at', 'created_by', 'deleted_at', 'deleted_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique'],
+            //[['name'], 'unique'],
         ];
     }
 
@@ -61,5 +61,9 @@ class Farm extends \yii\db\ActiveRecord
     public function getOrders()
     {
         return $this->hasMany(Order::className(), ['farm_id' => 'id']);
+    }
+
+    public function __toString() {
+        return $this->name ?: '';
     }
 }

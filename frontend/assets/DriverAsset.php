@@ -5,6 +5,7 @@ namespace frontend\assets;
 
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class DriverAsset extends AssetBundle
 {
@@ -13,5 +14,13 @@ class DriverAsset extends AssetBundle
 
     public $css = [
         'css/drivers.css'
+    ];
+
+    public $js = [
+        'js/create.order.js'
+    ];
+
+    public $depends = [
+        JqueryAsset::class,
     ];
 }

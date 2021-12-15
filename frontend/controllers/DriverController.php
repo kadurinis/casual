@@ -13,7 +13,7 @@ use yii\web\Controller;
 class DriverController extends Controller
 {
     public function actionIndex() {
-        return $this->render('index', [
+        return $this->render('index-interactive', [
             'drivers' => (new DriverSearch())->getQuery()->where(['deleted_at' => null])->all(),
             'foods' => (new FoodSearch())->getQuery()->where(['deleted_at' => null])->all(),
             'farms' => (new FarmSearch())->getQuery()->where(['deleted_at' => null])->all(),
@@ -22,8 +22,9 @@ class DriverController extends Controller
 
     public function actionCreateOrder() {
         $params = \Yii::$app->request->bodyParams;
-        $model = new OrderModel(array_intersect_key($params, array_flip(['food_id', 'farm_id', 'driver_id'])));
-        print_r($model->attributes);
+        $params = array_intersect_key($params, array_flip(['food_id', 'farm_id', 'driver_id']));
+        $model = new OrderModel();
+        $model->setParams($params);
         if ($model->save()) {
             return $this->redirect(['driver/order-begin', 'id' => $model->id]);
         }

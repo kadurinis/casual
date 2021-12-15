@@ -7,3 +7,4 @@ MonitorAsset::register($this);
 $this->title = 'Мониторинг';
 ?>
 <div id="monitor-order"></div>
+<div id="new-order">Новая заявка!</div>

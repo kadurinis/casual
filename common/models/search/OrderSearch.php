@@ -14,6 +14,9 @@ class OrderSearch extends Order
     }
 
     public function getQuery() {
-        return self::find()->where(['deleted_at' => null]);
+        return self::find()
+            ->joinWith('farms')
+            ->joinWith('foods')
+            ->where(['deleted_at' => null]);
     }
 }

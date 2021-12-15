@@ -23,12 +23,12 @@ DriverAsset::register($this);
     <div id="drivers">
         <h4>Водитель</h4>
         <div class="row">
-        <?php foreach ($drivers as $driver) : ?>
-            <div class="col-md-3 form_radio_btn">
-                <?= Html::radio('driver_id', false, ['value' => $driver->id, 'id' => "driver{$driver->id}"]) ?>
-                <?= Html::label($driver->name, "driver{$driver->id}", ['class' => 'btn btn-primary']) ?>
-            </div>
-        <?php endforeach; ?>
+            <?php foreach ($drivers as $driver) : ?>
+                <div class="col-md-3 form_radio_btn">
+                    <?= Html::radio('driver_id', false, ['value' => $driver->id, 'id' => "driver{$driver->id}"]) ?>
+                    <?= Html::label($driver->name, "driver{$driver->id}", ['class' => 'btn btn-primary']) ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -37,7 +37,7 @@ DriverAsset::register($this);
         <div class="row">
             <?php foreach ($foods as $food) : ?>
                 <div class="col-md-3 form_radio_btn">
-                    <?= Html::radio('food_id', false, ['value' => $food->id, 'id' => "food{$food->id}"]) ?>
+                    <?= Html::checkbox('food_id[]', false, ['value' => $food->id, 'id' => "food{$food->id}"]) ?>
                     <?= Html::label($food->name, "food{$food->id}", ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php endforeach; ?>
@@ -49,17 +49,26 @@ DriverAsset::register($this);
         <div class="row">
             <?php foreach ($farms as $farm) : ?>
                 <div class="col-md-3 form_radio_btn">
-                    <?= Html::radio('farm_id', false, ['value' => $farm->id, 'id' => "farm{$farm->id}"]) ?>
+                    <?= Html::checkbox('farm_id[]', false, ['value' => $farm->id, 'id' => "farm{$farm->id}"]) ?>
                     <?= Html::label($farm->name, "farm{$farm->id}", ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
+
+    <div id="preview">
+
+    </div>
+
     <div class="row">
-        <div id="submit" class="col-md-12 form-group" style="text-align: center;margin-top:24px">
-            <?= Html::submitButton('Создать запрос', ['class' => 'btn btn-primary', 'style' => 'font-size: 150%; width: 100%']) ?>
+        <div class="col-md-12 form-group" style="text-align: center;margin-top:24px">
+            <?= Html::button('Назад', ['id' => 'prev', 'class' => 'btn btn-primary', 'style' => 'font-size: 150%;']) ?>
+            <?= Html::button('Далее', ['id' => 'next', 'class' => 'btn btn-primary', 'style' => 'font-size: 150%;']) ?>
+            <?= Html::submitButton('Создать запрос', ['id' => 'submitbtn', 'class' => 'btn btn-primary', 'style' => 'font-size: 150%;']) ?>
         </div>
     </div>
 </div>
 <?php ActiveForm::end(); ?>
+
+
 

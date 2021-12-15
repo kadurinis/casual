@@ -17,8 +17,8 @@ class OrderHistory extends Order
 
         $query
             ->andFilterWhere(['driver_id' => $this->driver_id])
-            ->andFilterWhere(['farm_id' => $this->farm_id])
-            ->andFilterWhere(['food_id' => $this->food_id]);
+            ->andFilterWhere(['farm.id' => $this->farm_id])
+            ->andFilterWhere(['food.id' => $this->food_id]);
 
         if ($this->created_at) {
             $query->andWhere(['>=', 'order.created_at', strtotime($this->created_at)]);
@@ -42,12 +42,19 @@ class OrderHistory extends Order
 
     public function getQuery() {
         return self::find()
-            ->select([
-                'order.*',
-            ])
-            ->joinWith('food')
-            ->joinWith('farm')
-            ->joinWith('driver');
+
+            ->joinWith('foods')
+            ->joinWith('farms')
+            ->joinWith('driver')
+            ->groupBy('order.id');
+    }
+
+    public function getFarmCell() {
+        return implode(', ', $this->farms);
+    }
+
+    public function getFoodCell() {
+        return implode(', ', $this->foods);
     }
 
     public function getDriverList() {

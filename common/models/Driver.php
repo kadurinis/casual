@@ -36,7 +36,7 @@ class Driver extends \yii\db\ActiveRecord
         return [
             [['created_at', 'created_by', 'deleted_at', 'deleted_by'], 'integer'],
             [['name', 'soname', 'patron'], 'string', 'max' => 255],
-            [['name'], 'unique'],
+            //[['name'], 'unique'],
             [['name'], 'required'],
         ];
     }
