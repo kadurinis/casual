@@ -36,7 +36,7 @@ DriverAsset::register($this);
     </div>
 
     <?php foreach (OrderFood::getSectionList() as $section) : ?>
-    <div id="section<?= $section ?>" class="sections">
+    <div id="section<?= $section ?>" class="sections" style="display: none">
         <h3>Секция <?= $section ?></h3>
         <h4>Корм</h4>
         <div class="row">
@@ -59,7 +59,7 @@ DriverAsset::register($this);
     </div>
     <?php endforeach; ?>
 
-    <div id="farms">
+    <div id="farms" style="display: none">
         <h4>Ферма</h4>
         <div class="row">
             <?php foreach ($farms as $farm) : ?>
