@@ -5,12 +5,13 @@
 .form_radio_btn input[type=radio], .form_radio_btn input[type=checkbox] {
     display: none;
 }
+
 .form_radio_btn label {
     display: inline-block;
     cursor: pointer;
     user-select: none;
-    padding: 1vh;
-    font-size: 150%;
+    padding: 3px;
+    font-size: 130%;
     width: 100%;
 }
 
