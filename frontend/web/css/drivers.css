@@ -1,6 +1,6 @@
 .form_radio_btn {
     display: inline-block;
-    padding: 0.5vh;
+    padding: 3px !important;
 }
 .form_radio_btn input[type=radio], .form_radio_btn input[type=checkbox] {
     display: none;
