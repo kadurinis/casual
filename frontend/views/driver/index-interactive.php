@@ -1,4 +1,6 @@
 <?php
+
+use common\models\OrderFood;
 use common\models\search\DriverSearch;
 use common\models\search\FoodSearch;
 use common\models\search\FarmSearch;
@@ -13,6 +15,7 @@ use frontend\assets\DriverAsset;
  */
 $this->title = 'Создать запрос';
 DriverAsset::register($this);
+
 ?>
 <div class="row">
     <?php \Yii::$app->session->getFlash('success') ?>
@@ -32,17 +35,29 @@ DriverAsset::register($this);
         </div>
     </div>
 
-    <div id="foods">
+    <?php foreach (OrderFood::getSectionList() as $section) : ?>
+    <div id="section<?= $section ?>" class="sections">
+        <h3>Секция <?= $section ?></h3>
         <h4>Корм</h4>
         <div class="row">
             <?php foreach ($foods as $food) : ?>
                 <div class="col-md-3 form_radio_btn">
-                    <?= Html::checkbox('food_id[]', false, ['value' => $food->id, 'id' => "food{$food->id}"]) ?>
-                    <?= Html::label($food->name, "food{$food->id}", ['class' => 'btn btn-primary']) ?>
+                    <?= Html::radio("food_section_{$section}", false, ['value' => $food->id, 'id' => "section_{$section}_food_{$food->id}"]) ?>
+                    <?= Html::label($food->name, "section_{$section}_food_{$food->id}", ['class' => 'btn btn-primary']) ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <h4>Вес, кг</h4>
+        <div class="row">
+            <?php foreach (OrderFood::getWeightList() as $weight) : ?>
+                <div class="col-md-3 form_radio_btn">
+                    <?= Html::radio("weight_section_{$section}", false, ['value' => $weight, 'id' => "section_{$section}_weight_{$weight}"]) ?>
+                    <?= Html::label($weight, "section_{$section}_weight_{$weight}", ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
+    <?php endforeach; ?>
 
     <div id="farms">
         <h4>Ферма</h4>

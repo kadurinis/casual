@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property int|null $order_id
  * @property int|null $food_id
+ * @property int $section number of section
+ * @property int $weight in kg
  *
  * @property Food $food
  * @property Order $order
@@ -30,7 +32,7 @@ class OrderFood extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'food_id'], 'integer'],
+            [['order_id', 'food_id', 'section', 'weight'], 'integer'],
             [['food_id'], 'exist', 'skipOnError' => true, 'targetClass' => Food::className(), 'targetAttribute' => ['food_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
@@ -47,6 +49,19 @@ class OrderFood extends \yii\db\ActiveRecord
             'food_id' => 'Food ID',
         ];
     }
+
+    public static function getSectionList() {
+        return [1, 2, 3, 4];
+    }
+
+    public static function getWeightList() {
+        $arr = [];
+        for ($i = 500; $i <= 5000; $i+= 500) {
+            $arr[] = $i;
+        }
+        return $arr;
+    }
+
 
     /**
      * Gets query for [[Food]].

@@ -22,7 +22,6 @@ class DriverController extends Controller
 
     public function actionCreateOrder() {
         $params = \Yii::$app->request->bodyParams;
-        $params = array_intersect_key($params, array_flip(['food_id', 'farm_id', 'driver_id']));
         $model = new OrderModel();
         $model->setParams($params);
         if ($model->save()) {
@@ -68,5 +67,30 @@ class DriverController extends Controller
     public function actionMonitorOrder() {
         $model = OrderModel::find()->orderBy(['id' => SORT_DESC])->limit(1)->one();
         return $this->renderPartial('order-monitor-partial', ['model' => $model]);
+    }
+
+    public function actionMonitorOrderConfirm() {
+        $order_id = \Yii::$app->request->get('order_id');
+        $model = OrderModel::findOne($order_id);
+        if (!$model) {
+            \Yii::$app->response->statusCode = 400;
+            return 'Не найден';
+        }
+        if (!$model->isNeedProcess()) {
+            \Yii::$app->response->statusCode = 400;
+            return 'Уже подтвержден';
+        }
+        $model->process()->save();
+        return 'ok';
+    }
+
+    public function actionMonitorOrderIsConfirmed() {
+        $order_id = \Yii::$app->request->get('order_id');
+        $model = OrderModel::findOne($order_id);
+        if (!$model) {
+            \Yii::$app->response->statusCode = 400;
+            return 'Не найден';
+        }
+        return $model->isNeedFinish() ? 'true' : 'false';
     }
 }

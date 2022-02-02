@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int|null $created_at
+ * @property int|null $processed_at
  * @property int|null $finished_at
  * @property int|null $driver_id
  * @property int|null $food_id
@@ -37,7 +38,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'finished_at', 'driver_id', 'food_id', 'farm_id'], 'integer'],
+            [['created_at', 'finished_at', 'processed_at', 'driver_id', 'food_id', 'farm_id'], 'integer'],
             [['created_at'], 'default', 'value' => time()],
             [['driver_id'], 'required'],
             [['driver_id'], 'exist', 'skipOnError' => true, 'targetClass' => Driver::className(), 'targetAttribute' => ['driver_id' => 'id']],

@@ -10,15 +10,41 @@ use common\models\OrderFood;
 
 class OrderModel extends Order
 {
+    /** @var OrderFood[] $_foods */
     private $_foods = [];
+    /** @var OrderFarm $_farms */
     private $_farms = [];
 
     public function setParams($params = []) {
         $this->driver_id = $params['driver_id'];
-        $this->_foods = $params['food_id'];
-        $this->_farms = $params['farm_id'];
-        $this->food_id = current($params['food_id']);
         $this->farm_id = current($params['farm_id']);
+
+        $this->_farms = array_map(static function ($id) {
+            return new OrderFarm(['farm_id' => $id]);
+        }, $params['farm_id']); // перечень ID ферм
+
+        $this->_foods[] = new OrderFood([
+            'food_id' => $params['food_section_1'],
+            'section' => 1,
+            'weight' => $params['weight_section_1']
+        ]);
+        $this->_foods[] = new OrderFood([
+            'food_id' => $params['food_section_2'],
+            'section' => 2,
+            'weight' => $params['weight_section_2']
+        ]);
+        $this->_foods[] = new OrderFood([
+            'food_id' => $params['food_section_3'],
+            'section' => 3,
+            'weight' => $params['weight_section_3']
+        ]);
+        if (isset($params['food_section_4'], $params['weight_section_4'])) {
+            $this->_foods[] = new OrderFood([
+                'food_id' => $params['food_section_4'],
+                'section' => 4,
+                'weight' => $params['weight_section_4']
+            ]);
+        }
     }
 
     public function getDriverName() {
@@ -56,13 +82,35 @@ class OrderModel extends Order
         ]);
     }
 
+    public function isNeedProcess() {
+        return $this->created_at && !$this->processed_at && !$this->finished_at;
+    }
+
+    public function isNeedFinish() {
+        return $this->created_at && $this->processed_at && !$this->finished_at;
+    }
+
+    public function process() {
+        $this->processed_at = time();
+        return $this;
+    }
+
     public function finish() {
         $this->finished_at = time();
         return $this;
     }
 
     public function getState() {
-        return $this->finished_at ? 'Отгружено' : 'Отгружается';
+        switch (true) {
+            case $this->finished_at > 0:
+                return 'Отгружено';
+            case $this->processed_at > 0:
+                return 'Отгружается';
+            case $this->created_at > 0:
+                return 'Ожидаем подтверждения';
+            default:
+                return 'Создана заявка';
+        }
     }
 
     public function beforeSave($insert)
@@ -72,8 +120,8 @@ class OrderModel extends Order
                 $this->addError('food', 'Не указан корм');
                 return false;
             }
-            if (count($this->_foods) > 4) {
-                $this->addError('food', 'Максимально 4 вида корма');
+            if (count($this->_foods) < 3) {
+                $this->addError('food', 'Надо заполнить минимум 3 секции');
                 return false;
             }
             if (empty($this->_farms)) {
@@ -84,6 +132,18 @@ class OrderModel extends Order
                 $this->addError('farm', 'Максимально 4 фермы');
                 return false;
             }
+            foreach ($this->_farms as $farm) {
+                if (!$farm->validate()) {
+                    $this->addError('Неверно указаны фермы');
+                    return false;
+                }
+            }
+            foreach ($this->_foods as $food) {
+                if (!$food->validate()) {
+                    $this->addError('Неверно указаны секции, вес или корм в них');
+                    return false;
+                }
+            }
         }
         return parent::beforeSave($insert);
     }
@@ -91,12 +151,12 @@ class OrderModel extends Order
     public function afterSave($insert, $changedAttributes = []) {
         if ($insert) {
             foreach ($this->_farms as $farm) {
-                $model = new OrderFarm(['farm_id' => $farm, 'order_id' => $this->id]);
-                $model->save();
+                $farm->order_id = $this->id;
+                $farm->save();
             }
             foreach ($this->_foods as $food) {
-                $model = new OrderFood(['food_id' => $food, 'order_id' => $this->id]);
-                $model->save();
+                $food->order_id = $this->id;
+                $food->save();
             }
         }
         parent::afterSave($insert, $changedAttributes);

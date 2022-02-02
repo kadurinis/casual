@@ -7,7 +7,7 @@ use common\models\search\OrderModel;
  */
 ?>
 <?php if ($model): ?>
-<h3 align="center" class="<?= $model->isNew() ? 'new-order' : '' ?>">Заявка на отгрузку №<?= $model->id ?></h3>
+<h3 align="center" data-id="<?= $model->id ?>" data-processed="<?= $model->processed_at ? 'true' : 'false' ?>" class="<?= $model->isNew() ? 'new-order' : '' ?>">Заявка на отгрузку №<?= $model->id ?></h3>
 <div style="padding: 80pt">
     <?= DetailView::widget([
         'model' => $model,

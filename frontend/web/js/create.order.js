@@ -1,11 +1,14 @@
 $(document).ready(function() {
 
-    let all = $('#preview, #drivers, #foods, #farms, #next, #prev, #submitbtn');
+    let all = $('#preview, #drivers, #foods, #farms, .sections, #next, #prev, #submitbtn');
 
     let blocks = {
         drivers: $('#drivers'),
-        foods: $('#foods'),
         farms: $('#farms'),
+        section1: $('#section1'),
+        section2: $('#section2'),
+        section3: $('#section3'),
+        section4: $('#section4'),
         preview: $('#preview'),
     }
     let buttons = {
@@ -18,7 +21,7 @@ $(document).ready(function() {
 
     buttons.next.click(e => {
         if (check()) {
-            step = step >= 4 ? 4 : (step + 1);
+            step = step >= 7 ? 7 : (step + 1);
             refresh();
         }
     });
@@ -32,21 +35,42 @@ $(document).ready(function() {
             alert('Нужно выбрать одного водителя');
             return false;
         }
-        let foods = blocks.foods.find('input:checked').length;
-        if (foods > 4) {
-            alert('Можно выбрать не более 4 видов кормов');
-            return false;
+        if (step === 2) {
+            if (blocks.section1.find('input[name=food_section_1]:checked').length < 1) {
+                alert('Нужно выбрать корм');
+                return false;
+            }
+            if (blocks.section1.find('input[name=weight_section_1]:checked').length < 1) {
+                alert('Нужно выбрать вес');
+                return false;
+            }
         }
-        if (step === 2 && foods === 0) {
-            alert('Нужно выбрать хотя бы один вид корма');
-            return false;
+        if (step === 3) {
+            if (blocks.section2.find('input[name=food_section_2]:checked').length < 1) {
+                alert('Нужно выбрать корм');
+                return false;
+            }
+            if (blocks.section2.find('input[name=weight_section_2]:checked').length < 1) {
+                alert('Нужно выбрать вес');
+                return false;
+            }
+        }
+        if (step === 4) {
+            if (blocks.section3.find('input[name=food_section_3]:checked').length < 1) {
+                alert('Нужно выбрать корм');
+                return false;
+            }
+            if (blocks.section3.find('input[name=weight_section_3]:checked').length < 1) {
+                alert('Нужно выбрать вес');
+                return false;
+            }
         }
         let farms = blocks.farms.find('input:checked').length;
         if (farms > 4) {
             alert('Можно выбрать не более 4 ферм');
             return false;
         }
-        if (step === 3 && farms === 0) {
+        if (step === 6 && farms === 0) {
             alert('Нужно выбрать хотя бы одну ферму');
             return false;
         }
@@ -61,24 +85,51 @@ $(document).ready(function() {
                 buttons.next.fadeIn();
                 break;
             case 2: // выбор корма
-                blocks.foods.fadeIn();
+                blocks.section1.fadeIn();
                 buttons.prev.fadeIn();
                 buttons.next.fadeIn();
                 break;
-            case 3: // выбор фермы
+            case 3: // выбор корма
+                blocks.section2.fadeIn();
+                buttons.prev.fadeIn();
+                buttons.next.fadeIn();
+                break;
+            case 4: // выбор корма
+                blocks.section3.fadeIn();
+                buttons.prev.fadeIn();
+                buttons.next.fadeIn();
+                break;
+            case 5: // выбор корма
+                blocks.section4.fadeIn();
+                buttons.prev.fadeIn();
+                buttons.next.fadeIn();
+                break;
+            case 6: // выбор фермы
                 blocks.farms.fadeIn();
                 buttons.prev.fadeIn();
                 buttons.next.fadeIn();
                 break;
-            case 4:
+            case 7:
                 let driver_list = $('<ol></ol>');
                 $('#drivers input[type=radio]:checked').each((i, v) => {
                     driver_list.append('<li>' + $(v).next('label').text() + '</li>');
                 });
+
                 let food_list = $('<ol></ol>');
-                $('#foods input[type=checkbox]:checked').each((i, v) => {
-                    food_list.append('<li>' + $(v).next('label').text() + '</li>');
+                $('.sections').each((i, v) => {
+                    let p = $(v).find('input[type=radio]:checked');
+                    food_list.append(
+                        '<li>'
+                        + 'Секция '
+                        + (i + 1)
+                        + ': '
+                        + $(p[0]).next('label').text()
+                        + ' - '
+                        + $(p[1]).next('label').text()
+                        + '</li>'
+                    );
                 });
+
                 let farm_list = $('<ol></ol>');
                 $('#farms input[type=checkbox]:checked').each((i, v) => {
                     farm_list.append('<li>' + $(v).next('label').text() + '</li>');
