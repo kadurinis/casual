@@ -64,7 +64,9 @@ class OrderModel extends Order
     }
 
     public function getFoodList() {
-        return implode(', ', $this->foods);
+        return implode('&nbsp;', array_map(static function (OrderFood $model) {
+            return "<li>{$model->section}: {$model->food->name} - {$model->weight}</li>";
+        }, $this->orderFoods));
     }
 
     public function attributeLabels()

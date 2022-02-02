@@ -21,6 +21,8 @@ use Yii;
  *
  * @property Farm[] $farms
  * @property Food[] $foods
+ *
+ * @property OrderFood[] $orderFoods
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -90,7 +92,7 @@ class Order extends \yii\db\ActiveRecord
         return $this->hasOne(Food::className(), ['id' => 'food_id']);
     }
 
-    public function getFoodOrder()
+    public function getOrderFoods()
     {
         return $this->hasMany(OrderFood::className(), ['order_id' => 'id']);
     }
@@ -101,7 +103,7 @@ class Order extends \yii\db\ActiveRecord
     }
 
     public function getFoods() {
-        return $this->hasMany(Food::class, ['id' => 'food_id'])->via('foodOrder');
+        return $this->hasMany(Food::class, ['id' => 'food_id'])->via('orderFoods');
     }
 
     public function getFarms() {
