@@ -31,8 +31,12 @@ $(document).ready(function() {
     });
 
     function check() {
-        if (blocks.drivers.find('input:checked').length !== 1) {
+        if (blocks.drivers.find('input[name=driver_id]:checked').length !== 1) {
             alert('Нужно выбрать одного водителя');
+            return false;
+        }
+        if (blocks.drivers.find('input[name=truck_id]:checked').length !== 1) {
+            alert('Нужно выбрать грузовик');
             return false;
         }
         if (step === 2) {
@@ -62,6 +66,12 @@ $(document).ready(function() {
             }
             if (blocks.section3.find('input[name=weight_section_3]:checked').length < 1) {
                 alert('Нужно выбрать вес');
+                return false;
+            }
+        }
+        if (step === 5) {
+            if ((blocks.section4.find('input[name=food_section_4]:checked').length + blocks.section4.find('input[name=weight_section_4]:checked').length) === 1) {
+                alert('Нужно либо не выбирать ничего, либо и корм, и вес');
                 return false;
             }
         }
@@ -111,8 +121,12 @@ $(document).ready(function() {
                 break;
             case 7:
                 let driver_list = $('<ol></ol>');
-                $('#drivers input[type=radio]:checked').each((i, v) => {
+                $('#drivers input[name=driver_id]:checked').each((i, v) => {
                     driver_list.append('<li>' + $(v).next('label').text() + '</li>');
+                });
+                let truck_list = $('<ol></ol>');
+                $('#drivers input[name=truck_id]:checked').each((i, v) => {
+                    truck_list.append('<li>' + $(v).next('label').text() + '</li>');
                 });
 
                 let food_list = $('<ol></ol>');
@@ -135,10 +149,11 @@ $(document).ready(function() {
                     farm_list.append('<li>' + $(v).next('label').text() + '</li>');
                 });
                 driver_list = '<ol>Водитель' + driver_list.html() + '</ol>';
+                truck_list = '<ol>Грузовик' + truck_list.html() + '</ol>';
                 food_list = '<ol>Корм' + food_list.html() + '</ol>';
                 farm_list = '<ol>Ферма' + farm_list.html() + '</ol>';
 
-                blocks.preview.html('<h4>Предпросмотр</h4>' + driver_list + food_list + farm_list);
+                blocks.preview.html('<h4>Предпросмотр</h4>' + driver_list + truck_list + food_list + farm_list);
                 blocks.preview.fadeIn();
                 buttons.prev.fadeIn();
                 buttons.submit.fadeIn();

@@ -14,6 +14,7 @@ use common\models\search\OrderModel;
         'attributes' => [
             'created_at:datetime',
             'driverName:text',
+            'truckName:text',
             'foodList:html',
             'farmList:text',
             'state:text',

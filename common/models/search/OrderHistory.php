@@ -8,6 +8,7 @@ use common\models\Driver;
 use common\models\Farm;
 use common\models\Food;
 use common\models\Order;
+use common\models\Truck;
 use yii\data\ActiveDataProvider;
 
 class OrderHistory extends Order
@@ -59,6 +60,10 @@ class OrderHistory extends Order
 
     public function getDriverList() {
         return Driver::find()->select(['name', 'id'])->indexBy('id')->orderBy(['name' => SORT_ASC])->column();
+    }
+
+    public function getTruckList() {
+        return Truck::find()->select(['label', 'id'])->indexBy('id')->orderBy(['label' => SORT_ASC])->column();
     }
 
     public function getFoodList() {

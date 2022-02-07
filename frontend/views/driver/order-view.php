@@ -20,7 +20,8 @@ $this->title = 'Заявка ' . ($model ? $model->id : '');
             'attributes' => [
                 'created_at:datetime',
                 'driverName:text',
-                'foodList:text',
+                'truckName:text',
+                'foodList:html',
                 'farmList:text',
                 'state:text',
                 'finished_at:datetime'

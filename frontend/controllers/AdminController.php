@@ -11,6 +11,7 @@ use common\models\search\DriverSearch;
 use common\models\search\FarmSearch;
 use common\models\search\FoodSearch;
 use common\models\search\OrderHistory;
+use common\models\search\TruckSearch;
 use yii\filters\AccessControl;
 use yii\filters\AjaxFilter;
 use yii\filters\VerbFilter;
@@ -41,7 +42,8 @@ class AdminController extends Controller
         $food = new FoodSearch();
         $farm = new FarmSearch();
         $driver = new DriverSearch();
-        return $this->render('lists', compact('food', 'farm', 'driver'));
+        $truck = new TruckSearch();
+        return $this->render('lists', compact('food', 'farm', 'driver', 'truck'));
     }
 
     public function actionAddToList() {
@@ -49,6 +51,7 @@ class AdminController extends Controller
         $food = new FoodSearch();
         $farm = new FarmSearch();
         $driver = new DriverSearch();
+        $truck = new TruckSearch();
 
         if (isset($params['FarmSearch'])) {
             $model = $farm;
@@ -58,6 +61,9 @@ class AdminController extends Controller
         }
         if (isset($params['FoodSearch'])) {
             $model = $food;
+        }
+        if (isset($params['TruckSearch'])) {
+            $model = $truck;
         }
         if (isset($model)) {
             $model->load($params);
@@ -81,6 +87,9 @@ class AdminController extends Controller
                 break;
             case FarmSearch::tableName():
                 $model = FarmSearch::findOne($id);
+                break;
+            case TruckSearch::tableName():
+                $model = TruckSearch::findOne($id);
                 break;
         }
         if (isset($model)) {

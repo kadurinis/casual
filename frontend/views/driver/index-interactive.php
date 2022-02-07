@@ -4,6 +4,7 @@ use common\models\OrderFood;
 use common\models\search\DriverSearch;
 use common\models\search\FoodSearch;
 use common\models\search\FarmSearch;
+use common\models\search\TruckSearch;
 use yii\bootstrap\Html;
 use yii\widgets\ActiveForm;
 use frontend\assets\DriverAsset;
@@ -11,6 +12,7 @@ use frontend\assets\DriverAsset;
  * @var DriverSearch[] $drivers
  * @var FoodSearch[] $foods
  * @var FarmSearch[] $farms
+ * @var TruckSearch[] $trucks
  * @var \yii\web\View $this
  */
 $this->title = 'Создать запрос';
@@ -30,6 +32,15 @@ DriverAsset::register($this);
                 <div class="col-md-3 form_radio_btn">
                     <?= Html::radio('driver_id', false, ['value' => $driver->id, 'id' => "driver{$driver->id}"]) ?>
                     <?= Html::label($driver->name, "driver{$driver->id}", ['class' => 'btn btn-primary']) ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <h4>Грузовик</h4>
+        <div class="row">
+            <?php foreach ($trucks as $truck) : ?>
+                <div class="col-md-3 form_radio_btn">
+                    <?= Html::radio('truck_id', false, ['value' => $truck->id, 'id' => "truck{$truck->id}"]) ?>
+                    <?= Html::label($truck->label, "truck{$truck->id}", ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php endforeach; ?>
         </div>

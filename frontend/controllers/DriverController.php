@@ -8,6 +8,7 @@ use common\models\search\DriverSearch;
 use common\models\search\FarmSearch;
 use common\models\search\FoodSearch;
 use common\models\search\OrderModel;
+use common\models\search\TruckSearch;
 use yii\web\Controller;
 
 class DriverController extends Controller
@@ -17,6 +18,7 @@ class DriverController extends Controller
             'drivers' => (new DriverSearch())->getQuery()->where(['deleted_at' => null])->all(),
             'foods' => (new FoodSearch())->getQuery()->where(['deleted_at' => null])->all(),
             'farms' => (new FarmSearch())->getQuery()->where(['deleted_at' => null])->all(),
+            'trucks' => (new TruckSearch())->getQuery()->where(['deleted_at' => null])->all(),
         ]);
     }
 

@@ -55,11 +55,7 @@ class OrderFood extends \yii\db\ActiveRecord
     }
 
     public static function getWeightList() {
-        $arr = [];
-        for ($i = 500; $i <= 5000; $i+= 500) {
-            $arr[] = $i;
-        }
-        return $arr;
+        return [500,1000,1500,2000,2500,3000,3500,4000,4200,4400,4600,4800,5000];
     }
 
 

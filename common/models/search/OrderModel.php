@@ -17,6 +17,7 @@ class OrderModel extends Order
 
     public function setParams($params = []) {
         $this->driver_id = $params['driver_id'];
+        $this->truck_id = $params['truck_id'];
         $this->farm_id = current($params['farm_id']);
 
         $this->_farms = array_map(static function ($id) {
@@ -51,6 +52,10 @@ class OrderModel extends Order
         return $this->driver->name;
     }
 
+    public function getTruckName() {
+        return $this->truck->label;
+    }
+
     public function getFoodName() {
         return $this->food->name;
     }
@@ -76,6 +81,7 @@ class OrderModel extends Order
             'farm_id' => 'Название фермы',
             'driver_id' => 'Имя водителя',
             'driverName' => 'Водитель',
+            'truckName' => 'Грузовик',
             'foodName' => 'Корм',
             'foodList' => 'Корм',
             'farmName' => 'Ферма',

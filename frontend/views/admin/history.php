@@ -39,6 +39,21 @@ $columns = [
     ],
     [
         'class' => DataColumn::class,
+        'attribute' => 'truck_id',
+        'filter' => $model->getTruckList(),
+        'filterType' => GridView::FILTER_SELECT2,
+        'filterWidgetOptions' => [
+            'theme' => Select2::THEME_DEFAULT,
+            'pluginOptions' => [
+                'placeholder' => '',
+                'allowClear' => true,
+                'dropdownAutoWidth' => true,
+            ]
+        ],
+        'format' => ['ExistInArray', $model->getTruckList()],
+    ],
+    [
+        'class' => DataColumn::class,
         'attribute' => 'food_id',
         'filter' => $model->getFoodList(),
         'filterType' => GridView::FILTER_SELECT2,
